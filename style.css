@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Press Start 2P", cursive;
+}
+
+body {
+  background-color: black;
+  background-image: url("https://wallpaperaccess.com/full/156992.png");
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 644px 1fr;
+  gap: 10px;
+}
+
+.grid {
+  width: 604px;
+  height: 604px;
+  margin: 20px;
+  border: 2px solid white;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 40px);
+  grid-template-rows: 40px;
+}
+.grid > div {
+  width: 40px;
+  height: 40px;
+
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: "contain";
+}
+.spaceship {
+  background-image: url("./Images/spaceship.png");
+}
+.laser {
+  background-image: url("./Images/projectile.png");
+}
+
+.alien {
+  background-image: url("./Images/alien.png");
+}
+
+.BOOM {
+  background-image: url("./Images/explosion.png");
+}
+.message {
+  position: absolute0;
+  top: 200px;
+  left: 200px;
+  width: 200px;
+  height: 100px;
+  background-color: cyan;
+  opacity: 90%;
+}
+.message h1 {
+  color: darkblue;
+  text-align: center;
+  line-height: 50px;
+}
+.scoreboard {
+  margin: 20px;
+  color: white;
+}
+
+.scoreboard > * {
+  margin: 20px;
+}
