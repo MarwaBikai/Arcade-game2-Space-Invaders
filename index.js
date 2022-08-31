@@ -3,6 +3,7 @@ const state = {
   cells: [],
   shipPosition: 217,
   alienPositions: [
+    2,
     3,
     4,
     5,
@@ -12,24 +13,34 @@ const state = {
     9,
     10,
     11,
-    18,
-    19,
-    20,
-    21,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
     22,
     23,
     24,
     25,
     26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
     33,
     34,
     35,
     36,
     37,
-    38,
-    39,
-    40,
-    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47, 
     48,
     49,
     50,
@@ -38,8 +49,14 @@ const state = {
     53,
     54,
     55,
-    56
+    56,
+    57,
+    62,
+    63,
+    64,
+    65,66,67,68,69,70,71,72,73,74,75,76,77
   ],
+  
   gameOver: false  , score=0;
 };
 
@@ -105,7 +122,7 @@ function controlShip(event) {
   } else if (event.code === "ArrowRight") {
     moveShip("right");
   } else if (event.code === "Space") {
-    console.log("fire!");
+   
     fire();
   }
 }
@@ -113,10 +130,10 @@ function moveShip(direction) {
   //remove ship ( image) from it's current position
   state.cells[state.shipPosition].classList.remove("spaceship");
 
-  if (direction === "left" && state.shipPosition % 15 !== 0) {
+  if (direction === "left" && state.shipPosition % 20 !== 0) {  // 20 grids( cells ) in width of the big grid
     state.shipPosition--;
     console.log("moving left");
-  } else if (direction === "right" && state.shipPosition % 15 !== 14) {
+  } else if (direction === "right" && state.shipPosition % 20 !== 19) { // shipPosition % 20 == ( 20 minus 1 )
     state.shipPosition++;
     console.log("moving right");
   }
@@ -134,7 +151,7 @@ function fire() {
     state.cells[laserPosition].classList.remove("laser");
     // remove laser image
     //laser starts at the ship position
-    laserPosition -= 15;
+    laserPosition -= 20 ;  // 20 cells on the width
     //decrease ( move up a row ) of the lase position
     if (laserPosition < 0) {
       //check if we are still in bounds !
@@ -174,20 +191,20 @@ function play() {
     if (direction === "right") {
       //if right at egde , increase position by 15 ,decrease 1
       if (atEdge("right")) {
-        movement = 15 - 1;
+        movement = 20 - 1;  // 20-1 movement of the aliens ( 20 cells on the width ) , when aliens are at the edge "right" it starts to go left 
         direction = "left";
       } else {
-        //if right increase th position by 1
+        //not at the edge , continue moving to the right 
         movement = 1;
       }
     } else if (direction === "left") {
       // left at edge , increase position by 15 increase 1
       if (atEdge("left")) {
-        movement = 15 + 1;
+        movement = 20 + 1;  // 20+1 movement of the aliens ( 20 cells on the width ) , when aliens are at the edge "left" it starts to go right 
         direction = "right";
       } else {
         //if left decrease position by 1
-        movement = -1;
+        movement = -1; //not at the edge , continue moving to the left
       }
     }
     //update the positions
@@ -199,7 +216,7 @@ function play() {
     //redraw aliens
     drawAliens();
     checkGameState(interval);
-  }, 300);
+  }, 500); // more time , slower and better to be able to kill all aliens 
 
   //setup the ship controls
   window.addEventListener("keydown", controlShip);
@@ -209,11 +226,11 @@ function atEdge(side) {
   if (side === "left") {
     // are any aliens in the left corne
 
-    return state.alienPositions.some((position) => position % 15 === 0);
+    return state.alienPositions.some((position) => position % 20 === 0);
   }
   if (side === "right") {
     // are any aliens in the right corner
-    return state.alienPositions.some((position) => position % 15 === 14);
+    return state.alienPositions.some((position) => position % 20 === 19);
   }
 }
 
@@ -225,7 +242,7 @@ function checkGameState(interval) {
     //stop interval
     clearInterval(interval);
 
-    drawMessage("Human wins!");
+    drawMessage("HUMAN WINS!");
   } else if (
     state.alienPositions.some((position) => position >= state.shipPosition)
   ) {
@@ -255,6 +272,8 @@ function drawMessage(message) {
 const drawScoreboard = () => {
   const heading = document.createElement("h1")
   heading.innerText = 'Space Invaders'
+  const heading1 = document.createElement("h2");
+  heading1.innerText = "Aliens got some help..."; // added a new title
   const paragraph1 = document.createElement("p")
   paragraph1.innerText = 'Press SPACE to shoot.'
   const paragraph2 = document.createElement("p")
@@ -266,7 +285,7 @@ const drawScoreboard = () => {
   const heading3 = document.createElement('h3')
   heading3.innerText = 'Score: '
   heading3.append(scoreElement)
-  scoreboard.append(heading, paragraph1, paragraph2, heading3)
+  scoreboard.append(heading, heading1 ,paragraph1, paragraph2, heading3)
 
   state.scoreElement = scoreElement
   state.element.append(scoreboard)
