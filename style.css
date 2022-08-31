@@ -64,6 +64,7 @@ body {
 .scoreboard {
   margin: 20px;
   color: white;
+  margin-left: 50px;
 }
 
 .scoreboard > * {
