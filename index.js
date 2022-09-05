@@ -1,9 +1,9 @@
 const state = {
-  numCells: (600 / 40) * (600 / 40),
+  numCells: (1280 / 40) * (600 / 40),
   cells: [],
-  shipPosition: 217,
+  shipPosition: 463,
   alienPositions: [
-    3,
+   3,
     4,
     5,
     6,
@@ -12,6 +12,12 @@ const state = {
     9,
     10,
     11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
     18,
     19,
     20,
@@ -21,8 +27,11 @@ const state = {
     24,
     25,
     26,
-    33,
-    34,
+    27,
+    28,
+    29,
+    30,
+
     35,
     36,
     37,
@@ -30,6 +39,12 @@ const state = {
     39,
     40,
     41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
     48,
     49,
     50,
@@ -38,7 +53,72 @@ const state = {
     53,
     54,
     55,
-    56
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126
+    
   ],
   gameOver: false  , score=0;
 };
@@ -113,10 +193,10 @@ function moveShip(direction) {
   //remove ship ( image) from it's current position
   state.cells[state.shipPosition].classList.remove("spaceship");
 
-  if (direction === "left" && state.shipPosition % 15 !== 0) {
+  if (direction === "left" && state.shipPosition % 32 !== 0) {
     state.shipPosition--;
     console.log("moving left");
-  } else if (direction === "right" && state.shipPosition % 15 !== 14) {
+  } else if (direction === "right" && state.shipPosition % 32 !== 31 ) {
     state.shipPosition++;
     console.log("moving right");
   }
@@ -134,7 +214,7 @@ function fire() {
     state.cells[laserPosition].classList.remove("laser");
     // remove laser image
     //laser starts at the ship position
-    laserPosition -= 15;
+    laserPosition -= 32 ;
     //decrease ( move up a row ) of the lase position
     if (laserPosition < 0) {
       //check if we are still in bounds !
@@ -172,18 +252,18 @@ function play() {
   interval = setInterval(() => {
     let movement;
     if (direction === "right") {
-      //if right at egde , increase position by 15 ,decrease 1
+      //if right at egde , increase position by 32 ,decrease 1
       if (atEdge("right")) {
-        movement = 15 - 1;
+        movement = 32 - 1;
         direction = "left";
       } else {
         //if right increase th position by 1
         movement = 1;
       }
     } else if (direction === "left") {
-      // left at edge , increase position by 15 increase 1
+      // left at edge , increase position by 32 increase 1
       if (atEdge("left")) {
-        movement = 15 + 1;
+        movement = 32 + 1;
         direction = "right";
       } else {
         //if left decrease position by 1
@@ -199,7 +279,7 @@ function play() {
     //redraw aliens
     drawAliens();
     checkGameState(interval);
-  }, 300);
+  }, 600 );
 
   //setup the ship controls
   window.addEventListener("keydown", controlShip);
@@ -209,11 +289,11 @@ function atEdge(side) {
   if (side === "left") {
     // are any aliens in the left corne
 
-    return state.alienPositions.some((position) => position % 15 === 0);
+    return state.alienPositions.some((position) => position % 32 === 0);
   }
   if (side === "right") {
     // are any aliens in the right corner
-    return state.alienPositions.some((position) => position % 15 === 14);
+    return state.alienPositions.some((position) => position % 32 === 31);
   }
 }
 
@@ -254,7 +334,9 @@ function drawMessage(message) {
 }
 const drawScoreboard = () => {
   const heading = document.createElement("h1")
-  heading.innerText = 'Space Invaders'
+  heading.innerText = 'Space Invaders: lvl 3'
+  const heading1 = document.createElement("h2")
+  heading1.innerText = "Our last chance..."
   const paragraph1 = document.createElement("p")
   paragraph1.innerText = 'Press SPACE to shoot.'
   const paragraph2 = document.createElement("p")
@@ -266,7 +348,7 @@ const drawScoreboard = () => {
   const heading3 = document.createElement('h3')
   heading3.innerText = 'Score: '
   heading3.append(scoreElement)
-  scoreboard.append(heading, paragraph1, paragraph2, heading3)
+  scoreboard.append(heading,heading1 paragraph1, paragraph2, heading3)
 
   state.scoreElement = scoreElement
   state.element.append(scoreboard)
