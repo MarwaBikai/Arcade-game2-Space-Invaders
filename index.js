@@ -1,9 +1,9 @@
 const state = {
-  numCells: (600 / 40) * (600 / 40),
+  numCells: (800 / 40) * (600 / 40),
   cells: [],
-  shipPosition: 217,
+  shipPosition:  289,
   alienPositions: [
-    2,
+  2,
     3,
     4,
     5,
@@ -40,7 +40,7 @@ const state = {
     44,
     45,
     46,
-    47, 
+    47,
     48,
     49,
     50,
@@ -54,7 +54,19 @@ const state = {
     62,
     63,
     64,
-    65,66,67,68,69,70,71,72,73,74,75,76,77
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77
   ],
   
   gameOver: false  , score=0;
@@ -78,7 +90,7 @@ function drawGrid() {
   const grid = document.createElement("div");
   grid.classList.add("grid");
   state.element.append(grid);
-  //create a lot of cells -15x15 225cells
+  //create a lot of cells 
   for (let i = 0; i < state.numCells; i++) {
     //create cell
     //append cell to grid
@@ -132,10 +144,10 @@ function moveShip(direction) {
 
   if (direction === "left" && state.shipPosition % 20 !== 0) {  // 20 grids( cells ) in width of the big grid
     state.shipPosition--;
-    console.log("moving left");
+    //console.log("moving left");
   } else if (direction === "right" && state.shipPosition % 20 !== 19) { // shipPosition % 20 == ( 20 minus 1 )
     state.shipPosition++;
-    console.log("moving right");
+    //console.log("moving right");
   }
 
   //figure out the delta
